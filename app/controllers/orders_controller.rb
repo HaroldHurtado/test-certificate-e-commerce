@@ -226,7 +226,9 @@ class OrdersController < ApplicationController
   def order_notification
       logger.info "==================Start order_notification======================="
       logger.info "==================End order_notification======================="
-      format.json {status: :ok}
+      respond_to do |format|
+          format.json {status: :ok}
+      end
       # OR
       #format.json {status: :created}
   end
