@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_04_24_132859) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_132859) do
     t.string "image_url"
     t.integer "quantity"
     t.decimal "price"
-    t.integer "order_id", null: false
+    t.bigint "order_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
