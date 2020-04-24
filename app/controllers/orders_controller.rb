@@ -225,9 +225,10 @@ class OrdersController < ApplicationController
 
   def order_notification
       logger.info "==================Start order_notification======================="
-      logger.info params
       logger.info "==================End order_notification======================="
-      #render :order_notification
+      format.json {status: :ok}
+      # OR
+      #format.json {status: :created}
   end
 
   private
