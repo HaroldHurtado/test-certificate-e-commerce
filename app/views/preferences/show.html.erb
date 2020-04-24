@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Preference:</strong>
+  <%= @preference.preference_id %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @preference.order_id %>
+</p>
+
+<%= link_to 'Edit', edit_preference_path(@preference) %> |
+<%= link_to 'Back', preferences_path %>

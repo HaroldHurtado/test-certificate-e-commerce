@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: preferences
+#
+#  id            :integer          not null, primary key
+#  preference_id :string
+#  order_id      :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+one:
+  preference_id: MyString
+  order_id: 1
+
+two:
+  preference_id: MyString
+  order_id: 1

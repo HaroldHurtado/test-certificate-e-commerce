@@ -1,0 +1,74 @@
+<div class="container col-md-10">
+    <%= form_with(model: order, local: true) do |form| %>
+      <% if order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+          <ul>
+            <% order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+    <div class="col-md-12 row">
+        <div class="col-md-4">
+            <br/>
+            <h4> Ingresar breve descripción</h4>
+            <div class="field">
+                <%= form.text_area :desccription, :rows => 2, :cols => 26 %>
+            </div>
+            <br/>
+            <div class="actions">
+                <%= link_to 'Cancelar', orders_path, :class => "btn btn-secondary"%>
+                <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                    <i class="icon-ok icon-white"></i> Guardar
+                <% end %>
+            </div>
+        </div>
+        <div class="col-md-8" >
+            <h5>Lista de 10 celulares (La tabla tiene scroll)<h5>
+            <div style="height: 500px; overflow: auto">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% if @items %>
+                        <% @items.each do |item| %>
+                            <tr>
+                                <td>
+                                    <div class="text-center">
+                                        <img src="<%=item.image_url%>" style="width: 60px; height: 80px" class="rounded" alt="<%= item.name%>">
+                                    </div>
+                                </td>
+                                <td><%= item.name %></td>
+                                <td><%= item.price %></td>
+                                <td>
+                                    <input type="hidden" name="order[order_items_attributes][][id]" value="<%= item.id%>" />
+                                    <input type="hidden" name="order[order_items_attributes][][name]" value="<%= item.name%>" />
+                                    <input type="hidden" name="order[order_items_attributes][][description]" value="<%= item.description%>" />
+                                    <input type="hidden" name="order[order_items_attributes][][image_url]" value="<%= item.image_url%>" />
+                                    <input type="hidden" name="order[order_items_attributes][][price]" value="<%= item.price%>" />
+                                    <input name="order[order_items_attributes][][quantity]" style="width: 70px" maxlength="6" value="0" />
+                                </td>
+                            </tr>
+                        <% end %>
+                        <% end %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <% end %>
+</div>

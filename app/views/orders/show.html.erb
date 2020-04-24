@@ -1,0 +1,58 @@
+<br/>
+<div class="container col-md-12 row">
+    <div class="col-md-4">
+        <h5>Número de orden: <%= @order.id %></h5>
+        <h5>Descripción: <%= @order.desccription %></h5>
+        <h5>ID de preferencia Mercado Pago: <%= @order.preference_id %></h5>
+
+    </div>
+    <div class="col-md-4">
+        <h4>Test User (Vendedor)</h4>
+        <h5>Id: 469485398</h5>
+        <h5>Email: test_user_97555375@testuser.com</h5>
+    </div>
+    <div class="col-md-4">
+        <h4>Test User (Comprador)</h4>
+        <h5>Id: 471923173</h5>
+        <h5>Email: test_user_63274575@testuser.com</h5>
+    </div>
+</div>
+<br/>
+<div class="container col-md-10">
+    <h5>Lista de celulares<h5>
+    <div style="height: 300px; overflow: auto">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Pago</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if @items %>
+                    <% @items.each do |item| %>
+                        <tr>
+                            <td>
+                                <div class="text-center">
+                                    <img src="<%=item.image_url%>" style="width: 60px; height: 60px" class="rounded" alt="<%= item.name%>">
+                                </div>
+                            </td>
+                            <td><%= item.name %></td>
+                            <td><%= item.quantity %></td>
+                            <td><%= item.price %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<br/>
+<div class="container col-md-12">
+    <%= link_to 'Regresar', orders_path , :class => "btn btn-secondary"%>
+<div>
