@@ -17,13 +17,13 @@
             <br/>
             <h4> Ingresar breve descripción</h4>
             <div class="field">
-                <%= form.text_area :desccription, :rows => 2, :cols => 26 %>
+                <%= form.text_area :description, :rows => 2, :cols => 26 %>
             </div>
             <br/>
             <div class="actions">
                 <%= link_to 'Cancelar', orders_path, :class => "btn btn-secondary"%>
                 <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
-                    <i class="icon-ok icon-white"></i> Guardar
+                    <i class="icon-ok icon-white"></i> Crear orden de compra
                 <% end %>
             </div>
         </div>

@@ -2,7 +2,7 @@
 <div class="container col-md-12 row">
     <div class="col-md-4">
         <h5>Número de orden: <%= @order.id %></h5>
-        <h5>Descripción: <%= @order.desccription %></h5>
+        <h5>Descripción: <%= @order.description %></h5>
         <h5>ID de preferencia Mercado Pago: <%= @order.preference_id %></h5>
 
     </div>
@@ -53,6 +53,16 @@
     </div>
 </div>
 <br/>
-<div class="container col-md-12">
-    <%= link_to 'Regresar', orders_path , :class => "btn btn-secondary"%>
+<div class="container col-md-12 row">
+    <div class="col-md-6">
+        <%= link_to 'Regresar', orders_path , :class => "btn btn-secondary"%>
+    </div>
+    <div class="col-md-6">
+        <form action="/procesar-pago" method="POST">
+          <script
+           src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+           data-preference-id="<%= @order.preference_id %>">
+          </script></form>
+    </div>
+
 <div>

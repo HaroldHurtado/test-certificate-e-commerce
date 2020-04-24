@@ -2,7 +2,7 @@
 #
 # Table name: items
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  name        :string
 #  description :string
 #  image_url   :string

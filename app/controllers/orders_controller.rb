@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
   def create
     @items = Item.all
     @order = Order.new()
-    @order.desccription = order_params[:desccription]
+    @order.description = order_params[:description]
     total_items = 0
     order_items_attributes = order_params[:order_items_attributes]
 
@@ -47,6 +47,7 @@ class OrdersController < ApplicationController
                        logger.info "=================================="
                        logger.info item
                        logger.info "=================================="
+                       id = item['id'].to_s
                        name = item['name'].to_s
                        description = item['description'].to_s
                        image_url = item['image_url'].to_s
@@ -65,21 +66,40 @@ class OrdersController < ApplicationController
                require 'mercadopago.rb'
                 mp = MercadoPago.new(ENV['ACCESS_TOKEN'])
                 payer = {
-                    name: "test_user_63274575@testuser.com",
-                    surname: "test_user_63274575@testuser.com",
+                    name: "Lola",
+                    surname: "Landa",
+                    identification: {
+                        type: "DNI",
+                        number: "22.333.444"
+                    },
                     email: "test_user_63274575@testuser.com",
+                    phone: {
+                        area_code: "011",
+                        number: "2222-3333"
+                    },
+                    address: {
+                        street_name: "Falsa",
+                        street_number: 123,
+                        zip_code: "1111"
+                    }
+
                 }
 
                 send_items = []
                 total_payment = 0
                 order_items_attributes.each do |item|
+                    id = item['name'].to_s
                     name = item['name'].to_s
+                    image_url = item['image_url'].to_s
                     quantity = item['quantity'].to_i
                     price = item['price'].to_f
 
                     if quantity> 0
                         send_items << {
+                            "id": id,
                             "title": name,
+                            "description": "Dispositivo móvil de Tienda e-commerce",
+                            "picture_url": image_url,
                             "quantity": quantity,
                             "unit_price": price,
                             "currency_id": "ARS"
@@ -103,32 +123,46 @@ class OrdersController < ApplicationController
                     "items": send_items,
                     "payment_methods": {
                         "excluded_payment_types": [
-                            {"id":"ticket"},
+                            {"id":"amex"},
                             {"id":"atm"}
-                        ]
+                        ],
+                        "installments": 6,
+                        "default_installments": 6
                     },
                     "back_urls": back_urls,
-                    "auto_return": auto_return
+                    "auto_return": auto_return,
+                    "notification_url": ENV['ENVIRONMENT_BASE_URL']+"/order_notification",
+                    "external_reference": @order.id.to_s
                 }
-
-                logger.info "==============================================="
-                logger.info preference_data
-                logger.info "==============================================="
 
                 preference = mp.create_preference(preference_data)
                 preference_response = preference['response']
 
-                logger.info "===================================="
-                logger.info preference
-                logger.info "===================================="
+                logger.info "================================"
+                logger.info "================================"
+                logger.info "================================"
+                logger.info preference_response
+                logger.info "================================"
+                logger.info "================================"
+                logger.info "================================"
+
 
                 message = ""
-                if preference_response["id"] == nil && preference_response["id"] == ""
-                      message = "No se pudo crear la orden en MercadoPago"
+                if preference_response["status"] == 401 || preference_response["status"] == "401"
+                    message = preference_response["message"]
+                    error = preference_response["error"]
+                    Preference.create(preference_id: message+" "+error, order_id: @order.id)
                 else
-                    message = "Se realizo con exito la orden en MercadoPago"
-                    Preference.create(preference_id: preference_response["id"], order_id: @order.id)
+                    if preference_response["id"] == nil && preference_response["id"] == ""
+                          message = "Preference ID, es nulo"
+                          if preference_response["status"] == 401 || preference_response["status"] == "401"
+                                Preference.create(preference_id: message, order_id: @order.id)
+                          end
+                    else
+                        Preference.create(preference_id: preference_response["id"], order_id: @order.id)
+                    end
                 end
+
 
 
               format.html { redirect_to @order, notice: message }
@@ -185,6 +219,14 @@ class OrdersController < ApplicationController
       render :order_failure
   end
 
+  def order_failure
+      render :order_failure
+  end
+
+  def order_notification
+      render :order_notification
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -193,6 +235,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:desccription, order_items_attributes: [:id, :name, :description, :image_url , :price, :quantity])
+      params.require(:order).permit(:description, order_items_attributes: [:id, :name, :description, :image_url , :price, :quantity])
     end
 end
