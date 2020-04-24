@@ -224,7 +224,10 @@ class OrdersController < ApplicationController
   end
 
   def order_notification
-      render :order_notification
+      logger.info "==================Start order_notification======================="
+      logger.info params
+      logger.info "==================End order_notification======================="
+      #render :order_notification
   end
 
   private
