@@ -226,7 +226,7 @@ class OrdersController < ApplicationController
       logger.info params
       logger.info "============================Catch Data==================================="
       logger.info "====Payment Method Id===="
-      @payment_method_id = params[:payment_method_id]
+      @payment_method = params[:payment_type]
       logger.info "====Transaction Amount===="
       @transaction_amount = params[:transaction_amount]
       logger.info "====Merchant Order Id===="
