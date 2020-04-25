@@ -1,20 +1,21 @@
 <br/>
 <div class="container col-md-12 row">
-    <div class="col-md-4">
-        <h5>Número de orden: <%= @order.id %></h5>
-        <h5>Descripción: <%= @order.description %></h5>
-        <h5>ID de preferencia Mercado Pago: <%= @order.preference_id %></h5>
+    <div class="col-md-7">
+        <h5 style="font-size:14px">Número de orden: <%= @order.id %></h5>
+        <h5 style="font-size:14px">Descripción: <%= @order.description %></h5>
+        <h5 style="font-size:14px">PreferenceId MercadoPago: <%= @order.preference_id %></h5>
 
     </div>
-    <div class="col-md-4">
-        <h4>Test User (Vendedor)</h4>
-        <h5>Id: 469485398</h5>
-        <h5>Email: test_user_97555375@testuser.com</h5>
+    <div class="col-md-2">
+        <%= link_to 'Ordenes', orders_path , :class => "btn btn-secondary col-md-12"%>
     </div>
-    <div class="col-md-4">
-        <h4>Test User (Comprador)</h4>
-        <h5>Id: 471923173</h5>
-        <h5>Email: test_user_63274575@testuser.com</h5>
+    <div class="col-md-3">
+        <form action="/procesar-pago" method="POST" class="col-md-12">
+          <script
+           src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+           data-preference-id="<%= @order.preference_id %>"
+           data-button-label="Pagar la compra">
+          </script></form>
     </div>
 </div>
 <br/>
@@ -52,17 +53,3 @@
         </table>
     </div>
 </div>
-<br/>
-<div class="container col-md-12 row">
-    <div class="col-md-6">
-        <%= link_to 'Regresar', orders_path , :class => "btn btn-secondary"%>
-    </div>
-    <div class="col-md-6">
-        <form action="/procesar-pago" method="POST">
-          <script
-           src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-           data-preference-id="<%= @order.preference_id %>">
-          </script></form>
-    </div>
-
-<div>

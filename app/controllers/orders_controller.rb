@@ -173,7 +173,7 @@ class OrdersController < ApplicationController
               format.json { render json: @order.errors, status: :unprocessable_entity }
             end
         else
-             @order.errors.add(:order_items, "Para realizar la compra, almenos un producto tiene que tener valor mayor que 0 (cero)")
+             @order.errors.add("Elementos: ", "Para realizar la compra, almenos un producto tiene que tener cantidad mayor que 0 (cero)")
             format.html { render :new }
             format.json { render json: @order.errors, status: :unprocessable_entity }
         end
@@ -209,18 +209,20 @@ class OrdersController < ApplicationController
   end
 
   def order_success
+      @order = Order.find(params[:order_id])
+      @items = OrderItem.where(order_id: @order.id)
       render :order_success
   end
 
   def order_pending
+      @order = Order.find(params[:order_id])
+      @items = OrderItem.where(order_id: @order.id)
       render :order_pending
   end
 
   def order_failure
-      render :order_failure
-  end
-
-  def order_failure
+      @order = Order.find(params[:order_id])
+      @items = OrderItem.where(order_id: @order.id)
       render :order_failure
   end
 

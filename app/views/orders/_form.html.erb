@@ -1,35 +1,65 @@
-<div class="container col-md-10">
-    <%= form_with(model: order, local: true) do |form| %>
-      <% if order.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<br/>
+<div class="col-md-12 row">
+    <div class="col-md-4">
+        <div class="container col-md-12" style="background: rgba(175, 146, 76, 0.3);">
+            <br/>
+            <label>Items</label>
+            <ul>
+                <li>id: identificador del elemento (db)</li>
+                <li>title: nombre del elemento (db)</li>
+                <li>description: "Dispositivo móvil de Tienda e-commerce"</li>
+                <li>picture_url: imagen de elemento (db)</li>
+                <li>quantity: ingresada por el usuario</li>
+                <li>unit_price: precio del elemento (db)</li>
+                <li>currency_id: ARS hardcode</li>
+            </ul>
 
-          <ul>
-            <% order.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+            <label>payment_methods</label>
+            <ul>
+                <li>excluded_payment_types:
+                    <ul>
+                        <li>id: amex</li>
+                        <li>id: atm</li>
+                    </ul>
+                </li>
+                <li>installments: 6</li>
+                <li>default_installments: 6</li>
+            </ul>
+            <br/>
         </div>
-      <% end %>
-
-    <div class="col-md-12 row">
-        <div class="col-md-4">
-            <br/>
-            <h4> Ingresar breve descripción</h4>
-            <div class="field">
-                <%= form.text_area :description, :rows => 2, :cols => 26 %>
-            </div>
-            <br/>
-            <div class="actions">
-                <%= link_to 'Cancelar', orders_path, :class => "btn btn-secondary"%>
-                <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
-                    <i class="icon-ok icon-white"></i> Crear orden de compra
+    </div>
+    <div class="col-md-8">
+        <%= form_with(model: order, local: true) do |form| %>
+          <% if order.errors.any? %>
+            <div id="error_explanation" style="background: rgba(121, 21, 15, 0.59);">
+              <h5 style="font-size:14px">Problemas al crear orden:</h5>
+              <ul>
+                <% order.errors.full_messages.each do |message| %>
+                  <li><label style="font-size:12px"><%= message %></label></li>
                 <% end %>
+              </ul>
             </div>
-        </div>
-        <div class="col-md-8" >
+          <% end %>
+
+        <div class="col-md-12">
+            <div class="col-md-12 row">
+                <div class="col-md-6">
+                    <h5> Ingresar breve descripción</h5>
+                    <%= form.text_field :description, :maxlength => 50, :class =>"col-md-12" %>
+                </div>
+                <div class="col-md-3">
+                    <%= link_to 'Cancelar', orders_path, :class => "btn btn-secondary col-md-12"%>
+                </div>
+                <div class="col-md-3">
+                    <%= button_tag(type: 'submit', class: "btn col-md-12", :style => "background-color: #2D3277; color:white") do %>
+                        <i class="icon-ok icon-white"></i> Crear orden
+                    <% end %>
+                </div>
+            </div>
+            <br/>
+            <br/>
             <h5>Lista de 10 celulares (La tabla tiene scroll)<h5>
-            <div style="height: 500px; overflow: auto">
+            <div style="height: 400px; overflow: auto">
 
                 <table class="table">
                     <thead>
@@ -43,32 +73,32 @@
 
                     <tbody>
                         <% if @items %>
-                        <% @items.each do |item| %>
-                            <tr>
-                                <td>
-                                    <div class="text-center">
-                                        <img src="<%=item.image_url%>" style="width: 60px; height: 80px" class="rounded" alt="<%= item.name%>">
-                                    </div>
-                                </td>
-                                <td><%= item.name %></td>
-                                <td><%= item.price %></td>
-                                <td>
-                                    <input type="hidden" name="order[order_items_attributes][][id]" value="<%= item.id%>" />
-                                    <input type="hidden" name="order[order_items_attributes][][name]" value="<%= item.name%>" />
-                                    <input type="hidden" name="order[order_items_attributes][][description]" value="<%= item.description%>" />
-                                    <input type="hidden" name="order[order_items_attributes][][image_url]" value="<%= item.image_url%>" />
-                                    <input type="hidden" name="order[order_items_attributes][][price]" value="<%= item.price%>" />
-                                    <input name="order[order_items_attributes][][quantity]" style="width: 70px" maxlength="6" value="0" />
-                                </td>
-                            </tr>
-                        <% end %>
+                            <% @items.each do |item| %>
+                                <tr>
+                                    <td>
+                                        <div class="text-center">
+                                            <img src="<%=item.image_url%>" style="width: 60px; height: 80px" class="rounded" alt="<%= item.name%>">
+                                        </div>
+                                    </td>
+                                    <td><%= item.name %></td>
+                                    <td><%= item.price %></td>
+                                    <td>
+                                        <input type="hidden" name="order[order_items_attributes][][id]" value="<%= item.id%>" />
+                                        <input type="hidden" name="order[order_items_attributes][][name]" value="<%= item.name%>" />
+                                        <input type="hidden" name="order[order_items_attributes][][description]" value="<%= item.description%>" />
+                                        <input type="hidden" name="order[order_items_attributes][][image_url]" value="<%= item.image_url%>" />
+                                        <input type="hidden" name="order[order_items_attributes][][price]" value="<%= item.price%>" />
+                                        <input name="order[order_items_attributes][][quantity]" type="number" min="0" step="1" style="width: 70px" maxlength="6" value="0" />
+                                    </td>
+                                </tr>
+                            <% end %>
                         <% end %>
 
                     </tbody>
                 </table>
             </div>
-        </div>
 
+        </div>
+        <% end %>
     </div>
-    <% end %>
 </div>

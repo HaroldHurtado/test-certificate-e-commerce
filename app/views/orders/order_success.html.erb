@@ -1,3 +1,53 @@
+<br/>
 <div>
-    <h1> Hola soy Order Success<h1/>
+    <h1> Hola, orden número <%= @order.id%> a sido pagada con exito desde MercadoPago<h1/>
+</div>
+
+<br/>
+<div class="container col-md-12 row">
+    <div class="col-md-8">
+        <h5 style="font-size:14px">Número de orden: <%= @order.id %></h5>
+        <h5 style="font-size:14px">Descripción: <%= @order.description %></h5>
+        <h5 style="font-size:14px">PreferenceId MercadoPago: <%= @order.preference_id %></h5>
+
+    </div>
+    <div class="col-md-4">
+        <%= link_to 'Ordenes', orders_path , :class => "btn btn-secondary col-md-12"%>
+    </div>
+
+</div>
+<br/>
+<div class="container col-md-10">
+    <h5>Lista de celulares<h5>
+    <div style="height: 300px; overflow: auto">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Pago</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if @items %>
+                    <% @items.each do |item| %>
+                        <tr>
+                            <td>
+                                <div class="text-center">
+                                    <img src="<%=item.image_url%>" style="width: 60px; height: 60px" class="rounded" alt="<%= item.name%>">
+                                </div>
+                            </td>
+                            <td><%= item.name %></td>
+                            <td><%= item.quantity %></td>
+                            <td><%= item.price %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+
+            </tbody>
+        </table>
+    </div>
 </div>

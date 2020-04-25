@@ -1,27 +1,48 @@
-<p id="notice"><%= notice %></p>
-
-<div class="container">
-    <h3>TIENDA E-COMMERCE</h3>
-    <h4>Sitio donde se lleva acabo las compras de productos celulares.</h4>
-    <h5>Disculpen que no lleve mucho estilo, pero al final lo que se quiere es la implementación del Checkout</h5>
-
+<div>
     <br/>
-    <div class="container col-md-12 row">
+    <div class="container col-md-12 row" style="background: rgba(76, 175, 80, 0.3)">
         <div class="col-md-6">
-            <h4>Test User (Vendedor)</h4>
-            <h5>Id: 469485398</h5>
-            <h5>Email: test_user_97555375@testuser.com</h5>
+            <label>Payer</label>
+            <ul>
+                <li>name: Lola</li>
+                <li>surename: Landa</li>
+                <li>email: test_user_63274575@testuser.com</li>
+                <li>identification
+                    <ul>
+                        <li>type: DNI</li>
+                        <li>number: 22.333.444</li>
+                    </ul>
+                </li>
+            </ul>
         </div>
         <div class="col-md-6">
-            <h4>Test User (Comprador)</h4>
-            <h5>Id: 471923173</h5>
-            <h5>Email: test_user_63274575@testuser.com</h5>
+            <label></label>
+            <ul>
+                <li>phone
+                    <ul>
+                        <li>area_code: 011</li>
+                        <li>number: 2222-3333</li>
+                    </ul>
+                </li>
+                <li>address
+                    <ul>
+                        <li>street_name: Falsa</li>
+                        <li>street_number: 123</li>
+                        <li>zip_code: 1111</li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
     <br/>
-    <h5>Lista de compras<h5>
-    <%= link_to 'Nueva Orden', new_order_path , :class => "btn btn-success"%>
-    <br/>
+    <div class="col-md-12 row">
+        <div class="col-md-6">
+            <h5>Lista de ordenes<h5>
+        </div>
+        <div class="col-md-6" >
+            <%= link_to 'Nueva Orden', new_order_path , :class => "btn", :style => "background-color: #2D3277; color:white"%>
+        </div>
+    </div>
     <br/>
     <div style="height: 500px; overflow: auto">
         <table class="table">
@@ -41,7 +62,7 @@
                     <td><%= order.id %></td>
                     <td><%= order.preference_id %></td>
                     <td><%= order.description %></td>
-                    <td><%= order.created_at %></td>
+                    <td><%= order.created_at.strftime("%d/%m/%Y %I:%M%p") %></td>
                     <td>
                         <%= link_to 'Detalle', order  , :class => "btn btn-info"%>
                         <%= link_to 'Eliminar', order, method: :delete, data: { confirm: 'Seguero de eliminar la orden?' }  , :class => "btn btn-danger"%>
