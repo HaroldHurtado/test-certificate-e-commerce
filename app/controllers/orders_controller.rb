@@ -12,6 +12,14 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
       @items = OrderItem.where(order_id: @order.id)
+
+      @transaction_amount = 0
+
+      if @items != nil && @items.count > 0
+          @items.each do |item|
+              @transaction_amount += item.price
+          end
+      end
   end
 
   # GET /orders/new
@@ -216,9 +224,19 @@ class OrdersController < ApplicationController
       logger.info params[:order_id]
       logger.info "Other params"
       logger.info params
-      logger.info "=========================================================================="
+      logger.info "============================Catch Data==================================="
+      logger.info "====Payment Method Id===="
+      @payment_method_id = params[:payment_method_id]
+      logger.info "====Transaction Amount===="
+      @transaction_amount = params[:transaction_amount]
+      logger.info "====Merchant Order Id===="
+      @merchant_order_id = params[:merchant_order_id]
+      logger.info "====Payment Id===="
+      @payment_id = params[:payment_id]
+
       @order = Order.find(params[:order_id])
       @items = OrderItem.where(order_id: @order.id)
+
       render :order_success
   end
 
