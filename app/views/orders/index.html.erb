@@ -64,7 +64,7 @@
                     <td><%= order.description %></td>
                     <td><%= order.created_at.strftime("%d/%m/%Y %I:%M%p") %></td>
                     <td>
-                        <%= link_to 'Detalle', order  , :class => "btn btn-info"%>
+                        <%= link_to 'Detalle', order, :class => "btn btn-info"%>
                         <%= link_to 'Eliminar', order, method: :delete, data: { confirm: 'Seguero de eliminar la orden?' }  , :class => "btn btn-danger"%>
                     </td>
                 </tr>
