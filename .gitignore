@@ -33,3 +33,7 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+
+# Specific local environment configs
+.env
