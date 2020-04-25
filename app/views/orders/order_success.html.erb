@@ -5,10 +5,12 @@
 <br/>
 <div class="container col-md-12 row">
     <div class="col-md-8" style="background-color: #2D3277;">
-        <h5 style="font-size:14px; color:white">Payment Method: <%= @payment_method %></h5>
-        <h5 style="font-size:14px; color:white">Monto Pago: <%= @transaction_amount %></h5>
-        <h5 style="font-size:14px; color:white">Número de orden del pedido: <%= @merchant_order_id%></h5>
-        <h5 style="font-size:14px; color:white">Id de Pago: <%= @payment_id %></h5>
+        <!--<h5 style="font-size:14px; color:white">Payment Method: <%= @payment_method %></h5>-->
+        <h5 style="font-size:14px; color:white">Payment Method: No viene en los parametros devueltos</h5>
+        <!--<h5 style="font-size:14px; color:white">Monto Pagado: <%= @transaction_amount %></h5>-->
+        <h5 style="font-size:14px; color:white">Monto Pagado: No viene en los parametros devueltos</h5>
+        <h5 style="font-size:14px; color:white">Número de orden del pedido (params[:merchant_order_id]) : <%= @merchant_order_id%></h5>
+        <h5 style="font-size:14px; color:white">Id de Pago (params[:payment_id]) : <%= @payment_id %></h5>
 
     </div>
     <div class="col-md-4">
