@@ -10,7 +10,7 @@
         <%= link_to 'Ordenes', orders_path , :class => "btn btn-secondary col-md-12"%>
     </div>
     <div class="col-md-3">
-        <form action="/order_success?order_id=<%= @order.id %>&preference_id=<%= @order.preference_id %>" method="POST" class="col-md-12">
+        <form action="/order_success?order_id=<%= @order.id %>" method="POST" class="col-md-12">
           <script
            src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
            data-preference-id="<%= @order.preference_id %>"

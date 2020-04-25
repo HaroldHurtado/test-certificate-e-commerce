@@ -214,8 +214,8 @@ class OrdersController < ApplicationController
       logger.info "===========================order_success================================="
       logger.info "Order Id"
       logger.info params[:order_id]
-      logger.info "Preference Id"
-      logger.ionfo params[:preference_id]
+      logger.info "Other params"
+      logger.ionfo params
       logger.info "=========================================================================="
       @order = Order.find(params[:order_id])
       @items = OrderItem.where(order_id: @order.id)
