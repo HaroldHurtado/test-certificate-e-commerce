@@ -201,6 +201,7 @@ class OrdersController < ApplicationController
   def destroy
       @items = Item.all
       OrderItem.where(order_id: @order.id).destroy_all
+      Preference.where(order_id: @order.id).destroy_all
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
@@ -209,6 +210,13 @@ class OrdersController < ApplicationController
   end
 
   def order_success
+
+      logger.info "===========================order_success================================="
+      logger.info "Order Id"
+      logger.info params[:order_id]
+      logger.info "Preference Id"
+      logger.ionfo params[:preference_id]
+      logger.info "=========================================================================="
       @order = Order.find(params[:order_id])
       @items = OrderItem.where(order_id: @order.id)
       render :order_success
